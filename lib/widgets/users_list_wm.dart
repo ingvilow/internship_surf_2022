@@ -11,12 +11,12 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
   final EntityStateNotifier<List<Users>?> _currentUsers =
       EntityStateNotifier(null);
 
+  @override
+  ListenableState<EntityState<List<Users>?>> get usersList => _currentUsers;
+
   UsersListWM(
     UsersListModel model,
   ) : super(model);
-
-  @override
-  ListenableState<EntityState<List<Users>?>> get usersList => _currentUsers;
 
   @override
   void initWidgetModel() {
