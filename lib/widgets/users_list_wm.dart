@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:test_provider_2/models/user.dart';
 import 'package:test_provider_2/service/user_service.dart';
 import 'package:test_provider_2/widgets/users_list_models.dart';
-import 'package:test_provider_2/widgets/users_list_screen.dart';
+import 'package:test_provider_2/widgets/users_lists_screen.dart';
 
 class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
     implements IUsersWM {
@@ -27,7 +27,7 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
   // эта функция и загружает мне всех пользователей.
   // До этого я думала, что достаточно того, что здесь UsersListModel
   //не работало сначала из-за этого
-  Future<void> _loadUsers() async {
+  Future _loadUsers() async {
     try {
       _currentUsers.loading();
       final users = await model.getUser();
