@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_provider_2/detailed_info_widgets/detailed_info_screen.dart';
 import 'package:test_provider_2/widgets/users_lists_screen.dart';
 
 void main() {

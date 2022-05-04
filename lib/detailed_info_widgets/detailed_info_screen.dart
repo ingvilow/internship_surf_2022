@@ -4,7 +4,9 @@ import 'package:test_provider_2/detailed_info_widgets/detailed_info_wm.dart';
 import 'package:test_provider_2/models/user.dart';
 
 class DetailedScreen extends ElementaryWidget<IDetailedWidget> {
-  const DetailedScreen({
+  List<Users>? users;
+  DetailedScreen({
+    this.users,
     Key? key,
     WidgetModelFactory wmFactory = createUsersScreenWM,
   }) : super(wmFactory, key: key);
@@ -26,10 +28,7 @@ class DetailedScreen extends ElementaryWidget<IDetailedWidget> {
             itemCount: data?.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(data![index].name),
-                onTap: () {
-                  wm.selectUsersDetailed(index);
-                },
+                title: Text(data![index].username),
               );
             },
           );

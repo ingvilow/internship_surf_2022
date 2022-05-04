@@ -32,7 +32,10 @@ class UsersListScreen extends ElementaryWidget<IUsersWM> {
           return ListView.builder(
             itemCount: data?.length,
             itemBuilder: (context, index) {
-              return ListTile(title: Text(data![index].name));
+              return ListTile(
+                title: Text(data![index].name),
+                onTap: wm.selectUsersDetailed,
+              );
             },
           );
         },

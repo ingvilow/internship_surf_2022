@@ -1,9 +1,10 @@
+import 'dart:math';
+
 import 'package:elementary/elementary.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:test_provider_2/detailed_info_widgets/detailed_info_model.dart';
 import 'package:test_provider_2/detailed_info_widgets/detailed_info_screen.dart';
-import 'package:test_provider_2/detailed_info_widgets/screen_info.dart';
 import 'package:test_provider_2/models/user.dart';
 import 'package:test_provider_2/service/user_service.dart';
 
@@ -30,12 +31,12 @@ class DetailedScreenWM extends WidgetModel<DetailedScreen, DetailedModel>
   }
 
   @override
-  void selectUsersDetailed(final int index) {
+  void selectUsersDetailed() {
     Navigator.push(
       context,
       MaterialPageRoute<void>(
-        builder: (_) => InfoScreen(
-          name: user.value![index].name,
+        builder: (_) => DetailedScreen(
+          users: _currentUsers.value?.data,
         ),
       ),
     );
@@ -57,7 +58,7 @@ abstract class IDetailedWidget extends IWidgetModel {
 
   ValueListenable<List<Users>?> get user;
 
-  void selectUsersDetailed(int index);
+  void selectUsersDetailed();
 }
 
 DetailedScreenWM createUsersScreenWM(BuildContext _) => DetailedScreenWM(
