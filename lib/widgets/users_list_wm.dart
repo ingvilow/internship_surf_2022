@@ -2,6 +2,7 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:test_provider_2/models/user.dart';
+import 'package:test_provider_2/search_widget/search_delegate.dart';
 import 'package:test_provider_2/service/user_service.dart';
 import 'package:test_provider_2/widgets/users_list_models.dart';
 import 'package:test_provider_2/widgets/users_lists_screen.dart';
@@ -22,6 +23,16 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
   void initWidgetModel() {
     super.initWidgetModel();
     _loadUsers();
+  }
+
+  //инициализирует открытие поиска в верхнем баре
+  @override
+  Future<void> showSearchScreen() async {
+    await showSearch<void>(
+      context: context,
+      delegate: SearchDelegateScreen(),
+      query: '',
+    );
   }
 
   // эта функция и загружает мне всех пользователей.
@@ -46,4 +57,6 @@ UsersListWM createUsersScreenWM(BuildContext _) => UsersListWM(
 
 abstract class IUsersWM extends IWidgetModel {
   ListenableState<EntityState<List<Users>?>> get usersList;
+
+  void showSearchScreen();
 }

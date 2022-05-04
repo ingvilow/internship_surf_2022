@@ -12,7 +12,14 @@ class UsersListScreen extends ElementaryWidget<IUsersWM> {
   @override
   Widget build(IUsersWM wm) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: wm.showSearchScreen,
+            icon: const Icon(Icons.search),
+          ),
+        ],
+      ),
       body: EntityStateNotifierBuilder<List<Users>?>(
         listenableEntityState: wm.usersList,
         errorBuilder: (_, __, ___) {

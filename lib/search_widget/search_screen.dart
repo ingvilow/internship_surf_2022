@@ -12,23 +12,18 @@ class SearchScreen extends ElementaryWidget<ISearchWidget> {
   @override
   Widget build(ISearchWidget wm) {
     return Scaffold(
-      appBar: AppBar(),
       body: ValueListenableBuilder<List<Users>?>(
         valueListenable: wm.usersLists,
         builder: (_, data, __) {
-          return data!.isEmpty
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Please try again',
-                    ),
-                  ],
-                )
+          return data == null
+              ? Center(child: const Text('not found'))
               : ListView.builder(
                   itemCount: data.length,
                   itemBuilder: (context, index) {
-                    return ListTile(title: Text(data[index].name));
+                    return ListTile(
+                      title: Text(data[index].name),
+                      leading: const Icon(Icons.person),
+                    );
                   },
                 );
         },

@@ -1,6 +1,7 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:test_provider_2/models/user.dart';
+import 'package:test_provider_2/search_widget/search_screen.dart';
 
 class SearchDelegateScreen extends SearchDelegate<dynamic> {
   final EntityStateNotifier<List<Users>?> _currentUsers =
@@ -30,17 +31,7 @@ class SearchDelegateScreen extends SearchDelegate<dynamic> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return SizedBox(
-      width: 100,
-      height: 50,
-      child: Center(
-        child: Card(
-          elevation: 2,
-          color: Colors.lime,
-          child: Text(query),
-        ),
-      ),
-    );
+    return const SearchScreen();
   }
 
   @override
