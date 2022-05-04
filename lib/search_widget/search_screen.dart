@@ -16,7 +16,9 @@ class SearchScreen extends ElementaryWidget<ISearchWidget> {
         valueListenable: wm.usersLists,
         builder: (_, data, __) {
           return data == null
-              ? Center(child: const Text('not found'))
+              ? const Center(
+                  child: Text('not found'),
+                )
               : ListView.builder(
                   itemCount: data.length,
                   itemBuilder: (context, index) {
