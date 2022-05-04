@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:test_provider_2/detailed_info_widgets/detailed_info_wm.dart';
 import 'package:test_provider_2/models/user.dart';
 
-class DetailedScreen extends ElementaryWidget<IDeatailedWidget> {
-  DetailedScreen({
+class DetailedScreen extends ElementaryWidget<IDetailedWidget> {
+  const DetailedScreen({
     Key? key,
     WidgetModelFactory wmFactory = createUsersScreenWM,
   }) : super(wmFactory, key: key);
 
   @override
-  Widget build(IDeatailedWidget wm) {
+  Widget build(IDetailedWidget wm) {
     return Scaffold(
       appBar: AppBar(),
       body: EntityStateNotifierBuilder<List<Users>?>(
