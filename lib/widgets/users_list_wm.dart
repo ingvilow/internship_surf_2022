@@ -1,8 +1,8 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:test_provider_2/models/user.dart';
-import 'package:test_provider_2/search_widget/search_delegate.dart';
 import 'package:test_provider_2/service/user_service.dart';
 import 'package:test_provider_2/widgets/users_list_models.dart';
 import 'package:test_provider_2/widgets/users_lists_screen.dart';
@@ -12,8 +12,13 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
   final EntityStateNotifier<List<Users>?> _currentUsers =
       EntityStateNotifier(null);
 
+  final TextEditingController _editingController = TextEditingController();
+
   @override
   ListenableState<EntityState<List<Users>?>> get usersList => _currentUsers;
+
+  @override
+  TextEditingController get textEdit => _editingController;
 
   UsersListWM(
     UsersListModel model,
@@ -23,16 +28,22 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
   void initWidgetModel() {
     super.initWidgetModel();
     _loadUsers();
+    _editingController.addListener(textChanged);
   }
 
-  //инициализирует открытие поиска в верхнем баре
   @override
-  Future<void> showSearchScreen() async {
-    await showSearch<void>(
-      context: context,
-      delegate: SearchDelegateScreen(),
-      query: '',
-    );
+  void dispose() {
+    _editingController
+      ..removeListener(textChanged)
+      ..dispose();
+
+    super.dispose();
+  }
+
+  //фильтрация для поиска
+  void textChanged() {
+    model.getUser().then((value) =>
+        value?.where((element) => element.name.contains('')).toList());
   }
 
   // эта функция и загружает мне всех пользователей.
@@ -58,5 +69,5 @@ UsersListWM createUsersScreenWM(BuildContext _) => UsersListWM(
 abstract class IUsersWM extends IWidgetModel {
   ListenableState<EntityState<List<Users>?>> get usersList;
 
-  void showSearchScreen();
+  TextEditingController get textEdit;
 }

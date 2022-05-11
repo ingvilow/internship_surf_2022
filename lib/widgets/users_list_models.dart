@@ -5,7 +5,7 @@ import 'package:test_provider_2/service/user_service.dart';
 
 //сервис для того, чтобы забрать из АПИ пользователей
 class UsersListModel extends ElementaryModel {
-  final ValueNotifier<List<Users>?> searchUsers = ValueNotifier([]);
+  final ValueNotifier<List<Users>> usersSearch = ValueNotifier([]);
   final ApiService _apiService;
 
   UsersListModel(
