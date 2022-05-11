@@ -4,8 +4,6 @@ import 'package:test_provider_2/models/user.dart';
 import 'package:test_provider_2/service/user_service.dart';
 
 class SearchModel extends ElementaryModel {
-  final ValueNotifier<List<Users>?> searchUsers = ValueNotifier([]);
-
   final ApiService _searchService;
 
   SearchModel(this._searchService);

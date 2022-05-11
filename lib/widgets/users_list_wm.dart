@@ -1,8 +1,8 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:test_provider_2/detailed_info_widgets/detailed_info_screen.dart';
 import 'package:test_provider_2/models/user.dart';
+import 'package:test_provider_2/search_widget/search_delegate.dart';
 import 'package:test_provider_2/service/user_service.dart';
 import 'package:test_provider_2/widgets/users_list_models.dart';
 import 'package:test_provider_2/widgets/users_lists_screen.dart';
@@ -25,15 +25,13 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
     _loadUsers();
   }
 
+  //инициализирует открытие поиска в верхнем баре
   @override
-  void selectUsersDetailed() {
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-        builder: (_) => DetailedScreen(
-          users: _currentUsers.value?.data,
-        ),
-      ),
+  Future<void> showSearchScreen() async {
+    await showSearch<void>(
+      context: context,
+      delegate: SearchDelegateScreen(),
+      query: '',
     );
   }
 
@@ -60,5 +58,5 @@ UsersListWM createUsersScreenWM(BuildContext _) => UsersListWM(
 abstract class IUsersWM extends IWidgetModel {
   ListenableState<EntityState<List<Users>?>> get usersList;
 
-  void selectUsersDetailed();
+  void showSearchScreen();
 }

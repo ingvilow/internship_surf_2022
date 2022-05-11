@@ -9,13 +9,14 @@ import 'package:test_provider_2/service/user_service.dart';
 
 class SearchUserWM extends WidgetModel<SearchScreen, SearchModel>
     implements ISearchWidget {
+  final ValueNotifier<List<Users>?> searchUsers = ValueNotifier([]);
+
   @override
-  ValueListenable<List<Users>?> get usersLists => model.searchUsers;
+  ValueListenable<List<Users>?> get usersLists => searchUsers;
 
   SearchUserWM(SearchModel model) : super(model);
 
   //инициализирует открытие поиска в верхнем баре
-  @override
   Future<void> showSearchScreen() async {
     await showSearch<void>(
       context: context,
@@ -27,8 +28,6 @@ class SearchUserWM extends WidgetModel<SearchScreen, SearchModel>
 
 abstract class ISearchWidget extends IWidgetModel {
   ValueListenable<List<Users>?> get usersLists;
-
-  void showSearchScreen();
 }
 
 SearchUserWM createUsersScreenWM(BuildContext _) => SearchUserWM(
