@@ -36,6 +36,8 @@ class UsersListScreen extends ElementaryWidget<IUsersWM> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(data![index].name),
+                      onTap:
+                          wm.onUsersTap, //вот тут не могу понять, как сделать
                     );
                   },
                 );
