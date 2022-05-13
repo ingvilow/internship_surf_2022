@@ -12,13 +12,21 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
   final EntityStateNotifier<List<Users>?> _currentUsers =
       EntityStateNotifier(null);
 
+  final StateNotifier<List<Users>?> _searchSuggestion = StateNotifier();
   final TextEditingController _editingController = TextEditingController();
+  final String _query = '';
 
   @override
   ListenableState<EntityState<List<Users>?>> get usersList => _currentUsers;
 
   @override
   TextEditingController get textEdit => _editingController;
+
+  @override
+  StateNotifier<List<Users>?> get suggestionUsers => _searchSuggestion;
+
+  @override
+  String get query => _query;
 
   UsersListWM(
     UsersListModel model,
@@ -28,22 +36,16 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
   void initWidgetModel() {
     super.initWidgetModel();
     _loadUsers();
-    _editingController.addListener(textChanged);
+    _editingController.addListener(_loadUsers);
   }
 
   @override
   void dispose() {
     _editingController
-      ..removeListener(textChanged)
+      ..removeListener(_loadUsers)
       ..dispose();
 
     super.dispose();
-  }
-
-  //фильтрация для поиска
-  void textChanged() {
-    model.getUser().then((value) =>
-        value?.where((element) => element.name.contains('')).toList());
   }
 
   // эта функция и загружает мне всех пользователей.
@@ -53,6 +55,10 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
     try {
       _currentUsers.loading();
       final users = await model.getUser();
+      final suggestion = users
+          ?.where((element) => element.name.toLowerCase().contains(query))
+          .toList();
+      _searchSuggestion.accept(suggestion);
       _currentUsers.content(users);
     } on Exception catch (err) {
       _currentUsers.error(err);
@@ -68,6 +74,10 @@ UsersListWM createUsersScreenWM(BuildContext _) => UsersListWM(
 
 abstract class IUsersWM extends IWidgetModel {
   ListenableState<EntityState<List<Users>?>> get usersList;
+
+  StateNotifier<List<Users>?> get suggestionUsers;
+
+  String get query;
 
   TextEditingController get textEdit;
 }
