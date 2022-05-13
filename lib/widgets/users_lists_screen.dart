@@ -33,7 +33,10 @@ class UsersListScreen extends ElementaryWidget<IUsersWM> {
                       ? SearchBar(
                           controller: wm.textEdit,
                         )
-                      : ListResult(users: value[index - 1]);
+                      : ListResult(
+                          users: value[index - 1],
+                          onClick: wm.onUsersTap,
+                        );
                 },
               );
             },

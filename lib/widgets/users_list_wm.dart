@@ -2,6 +2,7 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:test_provider_2/detail_screen/info_screen.dart';
 import 'package:test_provider_2/models/user.dart';
 import 'package:test_provider_2/service/user_service.dart';
 import 'package:test_provider_2/widgets/users_list_models.dart';
@@ -15,6 +16,7 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
   final StateNotifier<List<Users>?> _searchSuggestion = StateNotifier();
   final TextEditingController _editingController = TextEditingController();
   final String _query = '';
+  final List<Users> _users = [];
 
   @override
   ListenableState<EntityState<List<Users>?>> get usersList => _currentUsers;
@@ -27,6 +29,9 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
 
   @override
   String get query => _query;
+
+  @override
+  List<Users> get user => _users;
 
   UsersListWM(
     UsersListModel model,
@@ -46,6 +51,15 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
       ..dispose();
 
     super.dispose();
+  }
+
+  //открывает по нажатию детальную информацию
+  @override
+  void onUsersTap(Users users) {
+    Navigator.push<void>(
+      context,
+      MaterialPageRoute(builder: (context) => const InfoScreen()),
+    );
   }
 
   // эта функция и загружает мне всех пользователей.
@@ -79,5 +93,9 @@ abstract class IUsersWM extends IWidgetModel {
 
   String get query;
 
+  List<Users> get user;
+
   TextEditingController get textEdit;
+
+  void onUsersTap(Users users);
 }
