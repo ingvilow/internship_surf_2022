@@ -1,4 +1,5 @@
 import 'package:elementary/elementary.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:test_provider_2/models/user.dart';
 import 'package:test_provider_2/search_widget/widget/search_bar_widget.dart';
@@ -22,18 +23,21 @@ class UsersListScreen extends ElementaryWidget<IUsersWM> {
         loadingBuilder: (_, __) {
           return const Center(child: CircularProgressIndicator());
         },
-        builder: (_, data) {
+        builder: (_, dataSearch) {
           return StateNotifierBuilder<List<Users>?>(
             listenableState: wm.suggestionUsers,
             builder: (context, value) {
               return ListView.builder(
-                itemCount: value!.length + 1,
+                itemCount: dataSearch!.length + 1,
                 itemBuilder: (context, index) {
                   return index == 0
                       ? SearchBar(
                           controller: wm.textEdit,
                         )
-                      : ListResult(users: value[index - 1]);
+                      : ListResult(
+                          users: dataSearch[index - 1],
+                          request: wm.textEdit.text,
+                        );
                 },
               );
             },

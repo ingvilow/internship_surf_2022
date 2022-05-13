@@ -14,7 +14,6 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
 
   final StateNotifier<List<Users>?> _searchSuggestion = StateNotifier();
   final TextEditingController _editingController = TextEditingController();
-  final String _query = '';
 
   @override
   ListenableState<EntityState<List<Users>?>> get usersList => _currentUsers;
@@ -23,10 +22,9 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
   TextEditingController get textEdit => _editingController;
 
   @override
-  StateNotifier<List<Users>?> get suggestionUsers => _searchSuggestion;
+  ListenableState<List<Users>?> get suggestionUsers => _searchSuggestion;
 
-  @override
-  String get query => _query;
+  String? _query;
 
   UsersListWM(
     UsersListModel model,
@@ -49,14 +47,15 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
   }
 
   // эта функция и загружает мне всех пользователей.
-  // До этого я думала, что достаточно того, что здесь UsersListModel
-  //не работало сначала из-за этого
+  //также тут (так как это один и тот же запрос и та же самая модель Users) поиск из списка по имени пользователя
   Future _loadUsers() async {
     try {
       _currentUsers.loading();
       final users = await model.getUser();
       final suggestion = users
-          ?.where((element) => element.name.toLowerCase().contains(query))
+          ?.where(
+            (element) => element.name.toLowerCase().contains(_query ?? ''),
+          )
           .toList();
       _searchSuggestion.accept(suggestion);
       _currentUsers.content(users);
@@ -75,9 +74,7 @@ UsersListWM createUsersScreenWM(BuildContext _) => UsersListWM(
 abstract class IUsersWM extends IWidgetModel {
   ListenableState<EntityState<List<Users>?>> get usersList;
 
-  StateNotifier<List<Users>?> get suggestionUsers;
-
-  String get query;
+  ListenableState<List<Users>?> get suggestionUsers;
 
   TextEditingController get textEdit;
 }
