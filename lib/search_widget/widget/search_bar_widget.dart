@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
-  final TextEditingController? controller;
+  final ValueChanged<String> onChanged;
+  final Function()? onClear;
 
-  const SearchBar({Key? key, this.controller}) : super(key: key);
+  const SearchBar({
+    required this.onChanged,
+    required this.onClear,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(12.0),
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
       child: TextField(
+        onChanged: onChanged,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          prefixIcon: Icon(Icons.search),
+          border: const OutlineInputBorder(),
+          prefixIcon: const Icon(Icons.search),
+          suffixIcon: IconButton(
+            icon: const Icon(Icons.clear),
+            onPressed: onClear,
+          ),
           hintText: 'Search Users',
         ),
       ),

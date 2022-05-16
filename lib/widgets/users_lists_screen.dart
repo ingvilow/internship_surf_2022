@@ -1,5 +1,4 @@
 import 'package:elementary/elementary.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:test_provider_2/models/user.dart';
 import 'package:test_provider_2/search_widget/widget/search_bar_widget.dart';
@@ -15,7 +14,7 @@ class UsersListScreen extends ElementaryWidget<IUsersWM> {
   @override
   Widget build(IUsersWM wm) {
     return Scaffold(
-      body: EntityStateNotifierBuilder<List<Users>?>(
+      body: EntityStateNotifierBuilder<List<Users>>(
         listenableEntityState: wm.usersList,
         errorBuilder: (_, __, ___) {
           return const Center(child: Text('err'));
@@ -23,24 +22,31 @@ class UsersListScreen extends ElementaryWidget<IUsersWM> {
         loadingBuilder: (_, __) {
           return const Center(child: CircularProgressIndicator());
         },
-        builder: (_, dataSearch) {
-          return StateNotifierBuilder<List<Users>?>(
-            listenableState: wm.suggestionUsers,
-            builder: (context, value) {
-              return ListView.builder(
-                itemCount: dataSearch!.length + 1,
-                itemBuilder: (context, index) {
-                  return index == 0
-                      ? SearchBar(
-                          controller: wm.textEdit,
-                        )
-                      : ListResult(
-                          users: dataSearch[index - 1],
-                          request: wm.textEdit.text,
-                        );
-                },
-              );
-            },
+        builder: (_, users) {
+          return SafeArea(
+            child: Column(
+              children: [
+                SearchBar(
+                  onChanged: wm.searchUsers,
+                  onClear: wm.clear,
+                ),
+                Expanded(
+                  child: StateNotifierBuilder<List<Users>>(
+                    listenableState: wm.suggestionUsers,
+                    builder: (_, searchUser) {
+                      return ListView.builder(
+                        itemCount: searchUser?.length ?? users?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return ListResult(
+                            users: searchUser?[index] ?? users![index],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),
