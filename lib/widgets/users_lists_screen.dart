@@ -39,6 +39,7 @@ class UsersListScreen extends ElementaryWidget<IUsersWM> {
                         itemBuilder: (context, index) {
                           return ListResult(
                             users: searchUser?[index] ?? users![index],
+                            onTap: wm.selectUsersDetailed,
                           );
                         },
                       );

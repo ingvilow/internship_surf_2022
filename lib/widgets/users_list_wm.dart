@@ -1,5 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
+import 'package:test_provider_2/detail_info/info_screen.dart';
 import 'package:test_provider_2/models/user.dart';
 import 'package:test_provider_2/service/user_service.dart';
 import 'package:test_provider_2/widgets/users_list_models.dart';
@@ -44,6 +45,19 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
     return _searchSuggestion.value?.clear();
   }
 
+  //переход на другую страницу с детальной информацией
+  @override
+  void selectUsersDetailed(Users users) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (_) => UserInfo(
+          users: users,
+        ),
+      ),
+    );
+  }
+
   // эта функция и загружает мне всех пользователей.
   //также тут (так как это один и тот же запрос и та же самая модель Users) поиск из списка по имени пользователя
   Future _loadUsers() async {
@@ -71,4 +85,6 @@ abstract class IUsersWM extends IWidgetModel {
   void searchUsers(String str) {}
 
   void clear() {}
+
+  void selectUsersDetailed(Users users) {}
 }
