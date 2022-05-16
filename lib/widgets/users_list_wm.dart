@@ -86,5 +86,5 @@ abstract class IUsersWM extends IWidgetModel {
 
   void clear() {}
 
-  void selectUsersDetailed(Users users) {}
+  void selectUsersDetailed(Users users);
 }
