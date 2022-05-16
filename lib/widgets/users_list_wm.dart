@@ -7,16 +7,16 @@ import 'package:test_provider_2/widgets/users_lists_screen.dart';
 
 class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
     implements IUsersWM {
-  final EntityStateNotifier<List<Users>> _currentUsers =
+  final EntityStateNotifier<List<Users>> _currentUsersState =
       EntityStateNotifier(null);
 
-  final StateNotifier<List<Users>> _searchSuggestion = StateNotifier();
+  final StateNotifier<List<Users>> _searchSuggestionState = StateNotifier();
 
   @override
-  ListenableState<EntityState<List<Users>>> get usersList => _currentUsers;
+  ListenableState<EntityState<List<Users>>> get usersList => _currentUsersState;
 
   @override
-  ListenableState<List<Users>> get suggestionUsers => _searchSuggestion;
+  ListenableState<List<Users>> get suggestionUsers => _searchSuggestionState;
 
   UsersListWM(
     UsersListModel model,
@@ -31,28 +31,30 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
   //этот метод фильтрует значения по имени из Search Bar
   @override
   void searchUsers(String str) {
-    final currentUsers = _currentUsers.value?.data;
+    final currentUsers = _currentUsersState.value?.data;
     final searchFilteredUsers = currentUsers
         ?.where((user) => user.name.toLowerCase().contains(str.toLowerCase()))
         .toList();
-    _searchSuggestion.accept(searchFilteredUsers);
+    _searchSuggestionState.accept(searchFilteredUsers);
   }
 
   //удаление текста, набранного в Search Bar
   @override
   void clear() {
-    return _searchSuggestion.value?.clear();
+    if (_searchSuggestionState.value!.isNotEmpty) {
+      return _searchSuggestionState.value?.clear();
+    }
   }
 
   // эта функция и загружает мне всех пользователей.
   //также тут (так как это один и тот же запрос и та же самая модель Users) поиск из списка по имени пользователя
   Future _loadUsers() async {
     try {
-      _currentUsers.loading();
+      _currentUsersState.loading();
       final users = await model.getUser();
-      _currentUsers.content(users);
+      _currentUsersState.content(users);
     } on Exception catch (err) {
-      _currentUsers.error(err);
+      _currentUsersState.error(err);
     }
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
-  final ValueChanged<String> onChanged;
-  final Function()? onClear;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback onClear;
 
   const SearchBar({
     required this.onChanged,
