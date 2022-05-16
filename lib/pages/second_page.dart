@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_provider_2/provider/counter_provider.dart';
-import 'package:test_provider_2/provider/third_page.dart';
+import 'package:test_provider_2/pages/third_page.dart';
+import 'package:test_provider_2/provider_counters/counter_provider.dart';
 
 /// вторая страница
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_provider_2/provider/counter_provider.dart';
-import 'package:test_provider_2/provider/second_page.dart';
-import 'package:test_provider_2/provider/third_page.dart';
+import 'package:test_provider_2/pages/second_page.dart';
+import 'package:test_provider_2/pages/third_page.dart';
+import 'package:test_provider_2/provider_counters/another_counter.dart';
+import 'package:test_provider_2/provider_counters/counter_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,16 +14,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Counter>(
-      create: (context) {
-        return Counter();
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Counter>(create: (context) {
+          return Counter();
+        }),
+        ChangeNotifierProvider<AnotherCounter>(create: (context) {
+          return AnotherCounter();
+        }),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: MyHomePage(),
+        home: const MyHomePage(),
       ),
     );
   }
