@@ -43,7 +43,9 @@ class _SecondPageState extends State<SecondPage> {
           onPressed: () {
             Navigator.push<void>(
               context,
-              MaterialPageRoute(builder: (context) => const ThirdPage()),
+              MaterialPageRoute(
+                builder: (context) => const ThirdPage(),
+              ),
             );
           },
         ),

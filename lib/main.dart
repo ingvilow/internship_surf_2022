@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_provider_2/pages/second_page.dart';
 import 'package:test_provider_2/pages/third_page.dart';
-import 'package:test_provider_2/provider_counters/another_counter.dart';
 import 'package:test_provider_2/provider_counters/counter_provider.dart';
 
 void main() {
@@ -14,15 +13,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<Counter>(create: (context) {
-          return Counter();
-        }),
-        ChangeNotifierProvider<AnotherCounter>(create: (context) {
-          return AnotherCounter();
-        }),
-      ],
+    return ChangeNotifierProvider<Counter>(
+      create: (context) {
+        return Counter();
+      },
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -52,20 +46,22 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('First Page'),
       ),
       body: Center(
-        child: Consumer<Counter>(builder: (_, value, child) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
-              ),
-              Text(
-                value.counter.toString(),
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            ],
-          );
-        }),
+        child: Consumer<Counter>(
+          builder: (_, value, child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text(
+                  'You have pushed the button this many times:',
+                ),
+                Text(
+                  value.counter.toString(),
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              ],
+            );
+          },
+        ),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -75,7 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 value.incrementCounter();
               },
-              tooltip: 'Increment',
+              heroTag: 'Screen 1',
+              tooltip: 'Increment 1',
               child: const Icon(Icons.add),
             );
           }),
@@ -85,10 +82,13 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push<void>(
                   context,
-                  MaterialPageRoute(builder: (context) => const SecondPage()),
+                  MaterialPageRoute(
+                    builder: (context) => const SecondPage(),
+                  ),
                 );
               },
-              tooltip: 'Increment',
+              heroTag: 'Screen 2',
+              tooltip: 'Increment 2',
               child: const Text('2'),
             ),
           ),
@@ -98,10 +98,16 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push<void>(
                   context,
-                  MaterialPageRoute(builder: (context) => const ThirdPage()),
+                  MaterialPageRoute(
+                    builder: (context) => ChangeNotifierProvider<Counter>(
+                      create: (context) => Counter(),
+                      child: const ThirdPage(),
+                    ),
+                  ),
                 );
               },
-              tooltip: 'Increment',
+              heroTag: 'Screen 3',
+              tooltip: 'Increment 3',
               child: const Text('3'),
             ),
           ),
