@@ -14,23 +14,24 @@ class ThirdPage extends StatefulWidget {
 class _ThirdPageState extends State<ThirdPage> {
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<Counter>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Third Page'),
       ),
       body: Center(
-        child: Column(
-          children: [
-            Text(context.watch<Counter>().counter.toString()),
-            ElevatedButton(
+        child: Column(children: [
+          Text(context.watch<Counter>().counter.toString()),
+          ChangeNotifierProvider<Counter>.value(
+            value: provider,
+            child: ElevatedButton(
               onPressed: () {
-                Provider<void>.value(
-                    value: Provider.of<Counter>(context).incrementCounter());
+                provider.incrementCounter();
               },
-              child: const Text('Increase'),
+              child: const Text('Increment'),
             ),
-          ],
-        ),
+          ),
+        ]),
       ),
     );
   }
