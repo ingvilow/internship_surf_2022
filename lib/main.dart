@@ -46,29 +46,33 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('First Page'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              context.watch<Counter>().counter.toString(),
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+        child: Consumer<Counter>(builder: (_, value, child) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'You have pushed the button this many times:',
+              ),
+              Text(
+                value.counter.toString(),
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ],
+          );
+        }),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          FloatingActionButton(
-            onPressed: () {
-              context.read<Counter>().incrementCounter();
-            },
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
+          Consumer<Counter>(builder: (_, value, child) {
+            return FloatingActionButton(
+              onPressed: () {
+                value.incrementCounter();
+              },
+              tooltip: 'Increment',
+              child: const Icon(Icons.add),
+            );
+          }),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: FloatingActionButton(
