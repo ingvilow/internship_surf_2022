@@ -5,6 +5,8 @@ import 'package:test_provider_2/search_widget/widget/search_bar_widget.dart';
 import 'package:test_provider_2/widgets/ui/list_result.dart';
 import 'package:test_provider_2/widgets/users_list_wm.dart';
 
+///страница которая отобразится при загрузке
+///здесь инициализируется виджет для поиска и список всех пользователей
 class UsersListScreen extends ElementaryWidget<IUsersWM> {
   const UsersListScreen({
     Key? key,
