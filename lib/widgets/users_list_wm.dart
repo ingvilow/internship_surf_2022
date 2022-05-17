@@ -10,6 +10,8 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
   final EntityStateNotifier<List<Users>> _currentUsersState =
       EntityStateNotifier(null);
 
+  final TextEditingController _clearTextController = TextEditingController();
+
   final StateNotifier<List<Users>> _searchSuggestionState = StateNotifier();
 
   @override
@@ -17,6 +19,9 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
 
   @override
   ListenableState<List<Users>> get suggestionUsers => _searchSuggestionState;
+
+  @override
+  TextEditingController get clearTextController => _clearTextController;
 
   UsersListWM(
     UsersListModel model,
@@ -38,12 +43,9 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
     _searchSuggestionState.accept(searchFilteredUsers);
   }
 
-  //удаление текста, набранного в Search Bar
   @override
   void clear() {
-    if (_searchSuggestionState.value!.isNotEmpty) {
-      return _searchSuggestionState.value?.clear();
-    }
+    _clearTextController.clear();
   }
 
   // эта функция и загружает мне всех пользователей.
@@ -68,9 +70,11 @@ UsersListWM createUsersScreenWM(BuildContext _) => UsersListWM(
 abstract class IUsersWM extends IWidgetModel {
   ListenableState<EntityState<List<Users>>> get usersList;
 
+  TextEditingController get clearTextController;
+
   ListenableState<List<Users>> get suggestionUsers;
 
-  void searchUsers(String str) {}
+  void searchUsers(String str);
 
-  void clear() {}
+  void clear();
 }

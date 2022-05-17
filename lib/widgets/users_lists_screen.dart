@@ -29,6 +29,7 @@ class UsersListScreen extends ElementaryWidget<IUsersWM> {
                 SearchBar(
                   onChanged: wm.searchUsers,
                   onClear: wm.clear,
+                  controller: wm.clearTextController,
                 ),
                 Expanded(
                   child: StateNotifierBuilder<List<Users>>(

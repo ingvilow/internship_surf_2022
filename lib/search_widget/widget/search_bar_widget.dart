@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class SearchBar extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final VoidCallback onClear;
+  final TextEditingController controller;
 
   const SearchBar({
     required this.onChanged,
     required this.onClear,
+    required this.controller,
     Key? key,
   }) : super(key: key);
 
