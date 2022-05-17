@@ -1,5 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
+import 'package:test_provider_2/detail_users/user_info.dart';
 import 'package:test_provider_2/models/user.dart';
 import 'package:test_provider_2/service/user_service.dart';
 import 'package:test_provider_2/widgets/users_list_models.dart';
@@ -43,6 +44,19 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
     _searchSuggestionState.accept(searchFilteredUsers);
   }
 
+  //переход на другую страницу с детальной информацией
+  @override
+  void selectUsersDetailed(Users users) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (_) => UserInfo(
+          users: users,
+        ),
+      ),
+    );
+  }
+
   //очищает имя пользователя в Search bar, а также сбрасывает список пользователей если нажать "очистить"
   @override
   void clear() {
@@ -79,4 +93,6 @@ abstract class IUsersWM extends IWidgetModel {
   void searchUsers(String str);
 
   void clear();
+
+  void selectUsersDetailed(Users users);
 }
