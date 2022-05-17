@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_provider_2/models/user.dart';
 
-//эта страница показывает детальную информацию по каждому пользователю
+//эта страница показывает детальную информацию по пользователям
 class UserInfo extends StatelessWidget {
   final Users users;
   const UserInfo({

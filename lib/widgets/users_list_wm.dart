@@ -57,7 +57,7 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
     );
   }
 
-  //очищает имя пользователя в Search bar, а также сбрасывает список пользователей если нажать "очистить"
+  //очищает имя пользователя в Search bar, а также сбрасывает список найденных пользователей пользователей
   @override
   void clear() {
     _searchSuggestionState.accept(null);
