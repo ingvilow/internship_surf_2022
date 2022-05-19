@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_provider_2/animations/animation_switcher_demo/animated_switcher.dart';
+import 'package:test_provider_2/animations/cross_fade/cross_fade_animation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const AnimatedSwitcherScreen(),
+      home: const CrossFadeScreen(),
     );
   }
 }
