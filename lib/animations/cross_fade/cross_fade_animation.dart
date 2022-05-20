@@ -42,6 +42,24 @@ class CrossFadeScreen extends ElementaryWidget<IFadeAnimate> {
             onPressed: wm.changeFadeAnimation,
             child: const Text('fade changes'),
           ),
+          StateNotifierBuilder(
+            listenableState: wm.color,
+            builder: (context, value) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: wm.changeIconColor,
+                    icon: Icon(
+                      Icons.star,
+                      color: wm.defaultColor,
+                      size: 40,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
         ],
       ),
     );
