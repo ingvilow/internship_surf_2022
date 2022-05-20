@@ -44,6 +44,10 @@ class UsersListWM extends WidgetModel<UsersListScreen, UsersListModel>
     _searchSuggestionState.accept(searchFilteredUsers);
   }
 
+  //перезагрузка пользователей при ошибке
+  @override
+  void onRefresh() => _loadUsers();
+
   //переход на другую страницу с детальной информацией
   @override
   void selectUsersDetailed(Users users) {
@@ -95,4 +99,6 @@ abstract class IUsersWM extends IWidgetModel {
   void clear();
 
   void selectUsersDetailed(Users users);
+
+  void onRefresh();
 }
