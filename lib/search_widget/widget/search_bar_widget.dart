@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-//виджет поиска по пользователям
 class SearchBar extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final VoidCallback onClear;

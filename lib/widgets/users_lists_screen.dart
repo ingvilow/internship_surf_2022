@@ -8,7 +8,6 @@ import 'package:test_provider_2/widgets/users_list_wm.dart';
 
 ///страница которая отобразится при загрузке
 ///здесь инициализируется виджет для поиска и список всех пользователей
-///также покажет всех пользователей загруженных из АПИ
 class UsersListScreen extends ElementaryWidget<IUsersWM> {
   const UsersListScreen({
     Key? key,
