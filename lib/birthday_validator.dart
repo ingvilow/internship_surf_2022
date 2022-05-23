@@ -41,7 +41,10 @@ String? birthdayValidation(String value, DateTime now) {
 
   if (value.isEmpty) {
     return StringRes.openBankCardBirthdayEmpty;
-  } else if (date == null || !isInputValid || date.year < 1920 || date.year > now.year) {
+  } else if (date == null ||
+      !isInputValid ||
+      date.year < 1920 ||
+      date.year > now.year) {
     return StringRes.openBankCardBirthdayOutOfRange;
   } else if (date.isAfter(maxSupportedDate)) {
     return StringRes.openBankCardBirthdayTooYoung;
