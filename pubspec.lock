@@ -212,7 +212,7 @@ packages:
     source: hosted
     version: "1.3.0"
   elementary_test:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: elementary_test
       url: "https://pub.dartlang.org"
@@ -245,7 +245,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_lints:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: flutter_lints
       url: "https://pub.dartlang.org"
