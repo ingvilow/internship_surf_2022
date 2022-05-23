@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_provider_2/models/user.dart';
 
-//создается список для полного отображения пользователей из апи на UsersListScreen
+///создается список для полного отображения пользователей из апи на UsersListScreen
 class ListResult extends StatelessWidget {
   final Users users;
   final ValueChanged<Users> onTap;
