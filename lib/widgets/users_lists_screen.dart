@@ -2,12 +2,12 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:test_provider_2/models/user.dart';
 import 'package:test_provider_2/search_widget/widget/search_bar_widget.dart';
+import 'package:test_provider_2/widgets/ui/error_screen.dart';
 import 'package:test_provider_2/widgets/ui/list_result.dart';
 import 'package:test_provider_2/widgets/users_list_wm.dart';
 
 ///страница которая отобразится при загрузке
 ///здесь инициализируется виджет для поиска и список всех пользователей
-///также покажет всех пользователей загруженных из АПИ
 class UsersListScreen extends ElementaryWidget<IUsersWM> {
   const UsersListScreen({
     Key? key,
@@ -20,7 +20,7 @@ class UsersListScreen extends ElementaryWidget<IUsersWM> {
       body: EntityStateNotifierBuilder<List<Users>>(
         listenableEntityState: wm.usersList,
         errorBuilder: (_, __, ___) {
-          return const Center(child: Text('err'));
+          return ErrorScreen(onRefresh: wm.onRefresh);
         },
         loadingBuilder: (_, __) {
           return const Center(child: CircularProgressIndicator());
