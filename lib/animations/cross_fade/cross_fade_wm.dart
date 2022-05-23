@@ -6,18 +6,18 @@ import 'package:test_provider_2/animations/cross_fade/cross_fade_model.dart';
 class CrossFadeWM extends WidgetModel<CrossFadeScreen, CrossFadeAnimationModel>
     implements IFadeAnimate {
   final _duration = const Duration(milliseconds: 600);
-  final StateNotifier<bool> _isRotates = StateNotifier();
+  final StateNotifier<bool> _isFades = StateNotifier();
   final StateNotifier<Color> _isColor = StateNotifier();
   final Color _colorsTwo = Colors.yellow;
-
-  @override
-  bool get isRotate => _isRotate;
 
   @override
   Duration get duration => _duration;
 
   @override
-  ListenableState<bool> get isRotates => _isRotates;
+  bool get isFade => _isFade;
+
+  @override
+  ListenableState<bool> get isFades => _isFades;
 
   @override
   ListenableState<Color> get color => _isColor;
@@ -25,7 +25,7 @@ class CrossFadeWM extends WidgetModel<CrossFadeScreen, CrossFadeAnimationModel>
   @override
   Color get defaultColor => _colorsOne;
 
-  bool _isRotate = true;
+  bool _isFade = true;
   Color _colorsOne = Colors.purple;
 
   CrossFadeWM(CrossFadeAnimationModel model) : super(model);
@@ -33,8 +33,8 @@ class CrossFadeWM extends WidgetModel<CrossFadeScreen, CrossFadeAnimationModel>
   //aнимация плавной смены цвета контейнера
   @override
   void changeFadeAnimation() {
-    final result = _isRotate = !_isRotate;
-    _isRotates.accept(result);
+    final result = _isFade = !_isFade;
+    _isFades.accept(result);
   }
 
   //меняет цвет иконки
@@ -50,11 +50,11 @@ CrossFadeWM createFadeWM(BuildContext _) => CrossFadeWM(
     );
 
 abstract class IFadeAnimate extends IWidgetModel {
-  bool get isRotate;
+  bool get isFade;
 
   Color get defaultColor;
 
-  ListenableState<bool> get isRotates;
+  ListenableState<bool> get isFades;
 
   Duration get duration;
 

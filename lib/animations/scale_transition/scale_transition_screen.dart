@@ -10,10 +10,6 @@ class ScaleTransitionScreen extends ElementaryWidget<IScaleAnimate> {
 
   @override
   Widget build(IScaleAnimate wm) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Scale and Fade Transition'),
-      ),
-    );
+    return Scaffold(appBar: AppBar());
   }
 }

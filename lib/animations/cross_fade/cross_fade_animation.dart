@@ -17,7 +17,7 @@ class CrossFadeScreen extends ElementaryWidget<IFadeAnimate> {
         children: [
           Center(
             child: StateNotifierBuilder(
-              listenableState: wm.isRotates,
+              listenableState: wm.isFades,
               builder: (context, value) {
                 return AnimatedCrossFade(
                   firstChild: Container(
@@ -30,7 +30,7 @@ class CrossFadeScreen extends ElementaryWidget<IFadeAnimate> {
                     height: 200,
                     color: Colors.blueGrey,
                   ),
-                  crossFadeState: wm.isRotate
+                  crossFadeState: wm.isFade
                       ? CrossFadeState.showFirst
                       : CrossFadeState.showSecond,
                   duration: wm.duration,
