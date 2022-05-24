@@ -12,14 +12,55 @@ class ScaleTransitionScreen extends ElementaryWidget<IScaleAnimate> {
   Widget build(IScaleAnimate wm) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: ScaleTransition(
-          scale: wm.scaleAnimation,
-          child: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: FlutterLogo(size: 150.0),
+      body: Column(
+        children: [
+          Center(
+            child: ScaleTransition(
+              scale: wm.scaleAnimation,
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: FlutterLogo(size: 150.0),
+              ),
+            ),
           ),
-        ),
+          ExpansionTile(
+            // onExpansionChanged:,
+            title: const Text(
+              'Header',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            trailing: const Icon(Icons.arrow_drop_down),
+            children: [
+              StateNotifierBuilder(
+                listenableState: wm.isExpands,
+                builder: (context, value) {
+                  return SizeTransition(
+                    sizeFactor: wm.sizeTransitionAnimation,
+                    child: ListTile(
+                      title: const Text('important data 1'),
+                      trailing: IconButton(
+                        icon: wm.isExpanded
+                            ? const Icon(
+                                Icons.favorite_border,
+                                color: Colors.purple,
+                              )
+                            : const Icon(
+                                Icons.favorite,
+                                color: Colors.pink,
+                              ),
+                        onPressed: wm.changeColor,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+            //onExpansionChanged: true,
+          ),
+        ],
       ),
     );
   }
