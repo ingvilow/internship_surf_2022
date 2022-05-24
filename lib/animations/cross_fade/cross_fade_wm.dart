@@ -28,6 +28,6 @@ CrossFadeWM createFadeWM(BuildContext _) => CrossFadeWM(
 abstract class IFadeAnimate extends IWidgetModel {
   ValueListenable<bool> get isFades;
 
-  ///aнимация плавной смены цвета контейнера
+  /// aнимация плавной смены цвета контейнера
   void changeFadeAnimation();
 }

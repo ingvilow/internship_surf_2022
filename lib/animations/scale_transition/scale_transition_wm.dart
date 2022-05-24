@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:test_provider_2/animations/scale_transition/scale_transition_model.dart';
 import 'package:test_provider_2/animations/scale_transition/scale_transition_screen.dart';
 
-///ScaleTransition анимация
 class ScaleTransitionWM
     extends WidgetModel<ScaleTransitionScreen, ScaleAnimationModels>
     with TickerProviderWidgetModelMixin
@@ -66,17 +65,17 @@ ScaleTransitionWM createScaleWM(BuildContext _) => ScaleTransitionWM(
     );
 
 abstract class IScaleAnimate extends IWidgetModel {
-  ///эти контроллеры отвечают за анимацию флаттер-лого
+  /// эти контроллеры отвечают за анимацию флаттер-лого
   AnimationController? get controller;
 
   Animation<double> get scaleAnimation;
 
-  ///анимация и контроллер для сворачивания списка
+  /// анимация и контроллер для сворачивания списка
   AnimationController? get sizeTransitionController;
 
   Animation<double> get sizeTransitionAnimation;
 
-  ///смена иконки и цвета иконки
+  /// смена иконки и цвета иконки
   ValueListenable<bool> get isExpands;
 
   void changeColor();

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:test_provider_2/animations/animation_switcher_demo/animated_switcher.dart';
 import 'package:test_provider_2/animations/animation_switcher_demo/animation_model.dart';
 
-//устанавливаем длительноть анимации
+/// устанавливаем длительноть анимации
 const duration = Duration(milliseconds: 600);
 
 class AnimateWM extends WidgetModel<AnimatedSwitcherScreen, AnimationModel>
@@ -34,6 +34,6 @@ AnimateWM createAnimateWM(BuildContext _) => AnimateWM(
 abstract class IAnimate extends IWidgetModel {
   ValueListenable<bool> get isRotates;
 
-  ///анимирует смену цвета контейнера на экране
+  /// анимирует смену цвета контейнера на экране
   void changeSwitchAnimate();
 }
