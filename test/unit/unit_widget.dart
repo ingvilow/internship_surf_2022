@@ -17,11 +17,16 @@ void main() {
 
   test('today is 18', () {
     final value = birthdayValidation('07.09.1999', dateTime);
-    expect(value, value);
+    expect(value, null);
   });
 
   test('if the value is out of bound the acceptable value', () {
     final value = birthdayValidation('35.01.2000', dateTime);
+    expect(value, StringRes.openBankCardBirthdayOutOfRange);
+  });
+
+  test('диапазон 1920г. - по наст.вр', () {
+    final value = birthdayValidation('31.12.1919', dateTime);
     expect(value, StringRes.openBankCardBirthdayOutOfRange);
   });
 }
