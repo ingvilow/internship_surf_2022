@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:test_provider_2/animations/scale_transition/scale_transition_model.dart';
 import 'package:test_provider_2/animations/scale_transition/scale_transition_screen.dart';
 
+/// длительность анимации смены цвета иконки
+const duration = Duration(milliseconds: 600);
+
 class ScaleTransitionWM
     extends WidgetModel<ScaleTransitionScreen, ScaleAnimationModels>
     with TickerProviderWidgetModelMixin
@@ -28,12 +31,6 @@ class ScaleTransitionWM
     parent: _controller,
     curve: Curves.fastOutSlowIn,
   );
-
-  @override
-  AnimationController? get controller => _controller;
-
-  @override
-  Animation<double> get scaleAnimation => _animation;
 
   @override
   ValueListenable<bool> get isExpands => _isExpands;
@@ -65,10 +62,6 @@ ScaleTransitionWM createScaleWM(BuildContext _) => ScaleTransitionWM(
     );
 
 abstract class IScaleAnimate extends IWidgetModel {
-  /// эти контроллеры отвечают за анимацию флаттер-лого
-  AnimationController? get controller;
-
-  Animation<double> get scaleAnimation;
 
   /// анимация и контроллер для сворачивания списка
   AnimationController? get sizeTransitionController;

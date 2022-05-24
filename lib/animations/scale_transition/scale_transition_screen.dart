@@ -16,7 +16,7 @@ class ScaleTransitionScreen extends ElementaryWidget<IScaleAnimate> {
         children: [
           Center(
             child: ScaleTransition(
-              scale: wm.scaleAnimation,
+              scale: wm.sizeTransitionAnimation,
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: FlutterLogo(size: 150.0),
@@ -41,15 +41,20 @@ class ScaleTransitionScreen extends ElementaryWidget<IScaleAnimate> {
                     child: ListTile(
                       title: const Text('important data 1'),
                       trailing: IconButton(
-                        icon: value
-                            ? const Icon(
-                                Icons.favorite_border,
-                                color: Colors.purple,
-                              )
-                            : const Icon(
-                                Icons.favorite,
-                                color: Colors.pink,
-                              ),
+                        icon: AnimatedSwitcher(
+                          duration: duration,
+                          child: value
+                              ? Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.purple,
+                                  key: UniqueKey(),
+                                )
+                              : Icon(
+                                  Icons.favorite,
+                                  color: Colors.pink,
+                                  key: UniqueKey(),
+                                ),
+                        ),
                         onPressed: wm.changeColor,
                       ),
                     ),
