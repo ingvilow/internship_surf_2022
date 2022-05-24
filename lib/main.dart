@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:test_provider_2/animations/cross_fade/cross_fade_animation.dart';
 import 'package:test_provider_2/animations/scale_transition/scale_transition_screen.dart';
 
 void main() {
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ScaleTransitionScreen(),
+      home: const ScaleTransitionScreen(),
     );
   }
 }

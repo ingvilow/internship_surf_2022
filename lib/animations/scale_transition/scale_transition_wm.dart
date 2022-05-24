@@ -3,34 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:test_provider_2/animations/scale_transition/scale_transition_model.dart';
 import 'package:test_provider_2/animations/scale_transition/scale_transition_screen.dart';
 
+///ScaleTransition анимация
 class ScaleTransitionWM
     extends WidgetModel<ScaleTransitionScreen, ScaleAnimationModels>
     with TickerProviderWidgetModelMixin
     implements IScaleAnimate {
-  // final Duration _duration = const Duration(milliseconds: 600);
-  Animation<double>? _animation;
-  AnimationController? _controller;
+  //отвечает за анимацию флаттер лого
+  //решила все-таки оставить разбиение на разные wm-ки под разные анимациии,
+  //мне кажется, если свалить все в кучу, то в скором времени станет очень тяжело разобраться, что за что отвечает
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 2),
+    vsync: this,
+  )..repeat(reverse: true);
+  late final Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.fastOutSlowIn,
+  );
 
-  @override
-  ListenableState<Animation<double>>? get animation =>
-      throw UnimplementedError();
   @override
   AnimationController? get controller => _controller;
 
   @override
-  void animate() {
-    AnimationController(
-      duration: const Duration(
-        seconds: 2,
-      ),
-      vsync: this,
-      value: 0.1,
-    )..repeat(reverse: true);
-    _animation = CurvedAnimation(
-      parent: _animation!,
-      curve: Curves.bounceIn,
-    );
-  }
+  Animation<double> get scaleAnimation => _animation;
 
   ScaleTransitionWM(ScaleAnimationModels model) : super(model);
 }
@@ -42,7 +36,5 @@ ScaleTransitionWM createScaleWM(BuildContext _) => ScaleTransitionWM(
 abstract class IScaleAnimate extends IWidgetModel {
   AnimationController? get controller;
 
-  ListenableState<Animation<double>>? get animation;
-
-  void animate();
+  Animation<double> get scaleAnimation;
 }

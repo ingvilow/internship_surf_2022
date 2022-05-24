@@ -10,6 +10,17 @@ class ScaleTransitionScreen extends ElementaryWidget<IScaleAnimate> {
 
   @override
   Widget build(IScaleAnimate wm) {
-    return Scaffold(appBar: AppBar());
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: ScaleTransition(
+          scale: wm.scaleAnimation,
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: FlutterLogo(size: 150.0),
+          ),
+        ),
+      ),
+    );
   }
 }
