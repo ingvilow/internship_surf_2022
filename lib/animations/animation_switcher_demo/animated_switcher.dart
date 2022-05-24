@@ -1,6 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
-import 'package:test_provider_2/animations/animated_switcher_wm.dart';
+import 'package:test_provider_2/animations/animation_switcher_demo/animated_switcher_wm.dart';
 
 class AnimatedSwitcherScreen extends ElementaryWidget<IAnimate> {
   const AnimatedSwitcherScreen({
@@ -18,19 +18,21 @@ class AnimatedSwitcherScreen extends ElementaryWidget<IAnimate> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: StateNotifierBuilder(
-              listenableState: wm.isRotates,
-              builder: (context, value) {
+            child: ValueListenableBuilder<bool>(
+              valueListenable: wm.isRotates,
+              builder: (context, value, child) {
                 return AnimatedSwitcher(
-                  duration: wm.duration,
+                  duration: duration,
                   switchInCurve: Curves.bounceInOut,
-                  child: wm.isRotate
+                  child: value
                       ? Container(
+                          key: UniqueKey(),
                           color: Colors.indigo,
                           width: 200,
                           height: 200,
                         )
                       : Container(
+                          key: UniqueKey(),
                           color: Colors.red,
                           width: 200,
                           height: 200,

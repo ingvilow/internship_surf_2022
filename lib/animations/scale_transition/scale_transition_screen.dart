@@ -24,7 +24,6 @@ class ScaleTransitionScreen extends ElementaryWidget<IScaleAnimate> {
             ),
           ),
           ExpansionTile(
-            // onExpansionChanged:,
             title: const Text(
               'Header',
               style: TextStyle(
@@ -34,15 +33,15 @@ class ScaleTransitionScreen extends ElementaryWidget<IScaleAnimate> {
             ),
             trailing: const Icon(Icons.arrow_drop_down),
             children: [
-              StateNotifierBuilder(
-                listenableState: wm.isExpands,
-                builder: (context, value) {
+              ValueListenableBuilder<bool>(
+                valueListenable: wm.isExpands,
+                builder: (context, value, child) {
                   return SizeTransition(
                     sizeFactor: wm.sizeTransitionAnimation,
                     child: ListTile(
                       title: const Text('important data 1'),
                       trailing: IconButton(
-                        icon: wm.isExpanded
+                        icon: value
                             ? const Icon(
                                 Icons.favorite_border,
                                 color: Colors.purple,
@@ -58,7 +57,6 @@ class ScaleTransitionScreen extends ElementaryWidget<IScaleAnimate> {
                 },
               ),
             ],
-            //onExpansionChanged: true,
           ),
         ],
       ),

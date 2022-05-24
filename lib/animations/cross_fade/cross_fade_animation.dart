@@ -16,9 +16,9 @@ class CrossFadeScreen extends ElementaryWidget<IFadeAnimate> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: StateNotifierBuilder(
-              listenableState: wm.isFades,
-              builder: (context, value) {
+            child: ValueListenableBuilder<bool>(
+              valueListenable: wm.isFades,
+              builder: (context, value, child) {
                 return AnimatedCrossFade(
                   firstChild: Container(
                     width: 200,
@@ -30,10 +30,10 @@ class CrossFadeScreen extends ElementaryWidget<IFadeAnimate> {
                     height: 200,
                     color: Colors.blueGrey,
                   ),
-                  crossFadeState: wm.isFade
+                  crossFadeState: value
                       ? CrossFadeState.showFirst
                       : CrossFadeState.showSecond,
-                  duration: wm.duration,
+                  duration: duration,
                 );
               },
             ),
@@ -41,24 +41,6 @@ class CrossFadeScreen extends ElementaryWidget<IFadeAnimate> {
           ElevatedButton(
             onPressed: wm.changeFadeAnimation,
             child: const Text('fade changes'),
-          ),
-          StateNotifierBuilder(
-            listenableState: wm.color,
-            builder: (context, value) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    onPressed: wm.changeIconColor,
-                    icon: Icon(
-                      Icons.star,
-                      color: wm.defaultColor,
-                      size: 40,
-                    ),
-                  ),
-                ],
-              );
-            },
           ),
         ],
       ),

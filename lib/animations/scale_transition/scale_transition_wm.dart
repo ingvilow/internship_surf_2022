@@ -1,4 +1,5 @@
 import 'package:elementary/elementary.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:test_provider_2/animations/scale_transition/scale_transition_model.dart';
 import 'package:test_provider_2/animations/scale_transition/scale_transition_screen.dart';
@@ -8,7 +9,6 @@ class ScaleTransitionWM
     extends WidgetModel<ScaleTransitionScreen, ScaleAnimationModels>
     with TickerProviderWidgetModelMixin
     implements IScaleAnimate {
-  //эта анимация для разворачивания списка
   late final AnimationController _sizeTransitionController =
       AnimationController(
     duration: const Duration(minutes: 1),
@@ -19,11 +19,8 @@ class ScaleTransitionWM
     curve: Curves.linear,
   );
 
-  final StateNotifier<bool> _isExpands = StateNotifier();
+  final ValueNotifier<bool> _isExpands = ValueNotifier(false);
 
-  //отвечает за анимацию флаттер лого
-  //решила все-таки оставить разбиение на разные wm-ки под разные анимациии,
-  //мне кажется, если свалить все в кучу, то в скором времени станет очень тяжело разобраться, что за что отвечает
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 15),
     vsync: this,
@@ -39,13 +36,17 @@ class ScaleTransitionWM
   @override
   Animation<double> get scaleAnimation => _animation;
 
-  //анимация сворачивания списка
+  @override
+  ValueListenable<bool> get isExpands => _isExpands;
+
   @override
   Animation<double> get sizeTransitionAnimation => _sizeTransitionAnimation;
 
   @override
   AnimationController? get sizeTransitionController =>
       _sizeTransitionController;
+
+  ScaleTransitionWM(ScaleAnimationModels model) : super(model);
 
   @override
   void dispose() {
@@ -54,21 +55,9 @@ class ScaleTransitionWM
     super.dispose();
   }
 
-  //анимация смены цвета
-  @override
-  bool get isExpanded => _isExpanded;
-
-  @override
-  ListenableState<bool> get isExpands => _isExpands;
-
-  bool _isExpanded = true;
-
-  ScaleTransitionWM(ScaleAnimationModels model) : super(model);
-
   @override
   void changeColor() {
-    final result = _isExpanded = !_isExpanded;
-    _isExpands.accept(result);
+    _isExpands.value = !_isExpands.value;
   }
 }
 
@@ -77,19 +66,18 @@ ScaleTransitionWM createScaleWM(BuildContext _) => ScaleTransitionWM(
     );
 
 abstract class IScaleAnimate extends IWidgetModel {
+  ///эти контроллеры отвечают за анимацию флаттер-лого
   AnimationController? get controller;
 
   Animation<double> get scaleAnimation;
 
-//анимация и контроллер для сворачивания списка
+  ///анимация и контроллер для сворачивания списка
   AnimationController? get sizeTransitionController;
 
   Animation<double> get sizeTransitionAnimation;
 
-  //смена цвета иконки и цвета иконки
-  ListenableState<bool> get isExpands;
-
-  bool get isExpanded;
+  ///смена иконки и цвета иконки
+  ValueListenable<bool> get isExpands;
 
   void changeColor();
 }
