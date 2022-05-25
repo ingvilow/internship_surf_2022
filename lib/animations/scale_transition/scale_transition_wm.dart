@@ -13,23 +13,22 @@ class ScaleTransitionWM
     implements IScaleAnimate {
   late final AnimationController _sizeTransitionController =
       AnimationController(
-    duration: const Duration(minutes: 1),
+    duration: const Duration(seconds: 40),
     vsync: this,
   )..repeat(reverse: true);
+
   late final Animation<double> _sizeTransitionAnimation = CurvedAnimation(
-    parent: _controller,
+    parent: _sizeTransitionController,
     curve: Curves.linear,
   );
 
   final ValueNotifier<bool> _isExpands = ValueNotifier(false);
 
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 15),
-    vsync: this,
-  )..repeat(reverse: true);
-  late final Animation<double> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.fastOutSlowIn,
+  late final Animation<Size> _myAnimation = Tween<Size>(
+    begin: const Size(100, 100),
+    end: const Size(50, 120),
+  ).animate(
+    CurvedAnimation(parent: _sizeTransitionController, curve: Curves.bounceIn),
   );
 
   @override
@@ -39,15 +38,13 @@ class ScaleTransitionWM
   Animation<double> get sizeTransitionAnimation => _sizeTransitionAnimation;
 
   @override
-  AnimationController? get sizeTransitionController =>
-      _sizeTransitionController;
+  Animation<Size> get myAnimationTween => _myAnimation;
 
   ScaleTransitionWM(ScaleAnimationModels model) : super(model);
 
   @override
   void dispose() {
     _sizeTransitionController.dispose();
-    _controller.dispose();
     super.dispose();
   }
 
@@ -62,11 +59,11 @@ ScaleTransitionWM createScaleWM(BuildContext _) => ScaleTransitionWM(
     );
 
 abstract class IScaleAnimate extends IWidgetModel {
-
-  /// анимация и контроллер для сворачивания списка
-  AnimationController? get sizeTransitionController;
-
+  /// анимация  для сворачивания списка
   Animation<double> get sizeTransitionAnimation;
+
+  /// анимация для TweenAnimation
+  Animation<Size> get myAnimationTween;
 
   /// смена иконки и цвета иконки
   ValueListenable<bool> get isExpands;

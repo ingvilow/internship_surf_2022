@@ -63,6 +63,22 @@ class ScaleTransitionScreen extends ElementaryWidget<IScaleAnimate> {
               ),
             ],
           ),
+          AnimatedBuilder(
+            animation: wm.myAnimationTween,
+            builder: (context, child) {
+              return Container(
+                height: wm.myAnimationTween.value.height,
+                width: wm.myAnimationTween.value.width,
+                child: Center(
+                  child: child,
+                ),
+                color: Colors.yellow,
+              );
+            },
+            child: const Icon(
+              Icons.star,
+            ),
+          ),
         ],
       ),
     );
