@@ -16,6 +16,13 @@ class ScaleTransitionWM
     parent: _sizeTransitionController,
     curve: Curves.linear,
   );
+  @override
+  late final Animation<Size> myAnimationTween = Tween<Size>(
+    begin: const Size(100, 100),
+    end: const Size(50, 120),
+  ).animate(
+    CurvedAnimation(parent: _sizeTransitionController, curve: Curves.bounceIn),
+  );
 
   late final AnimationController _sizeTransitionController =
       AnimationController(
@@ -25,18 +32,8 @@ class ScaleTransitionWM
 
   final ValueNotifier<bool> _isExpands = ValueNotifier(false);
 
-  late final Animation<Size> _myAnimation = Tween<Size>(
-    begin: const Size(100, 100),
-    end: const Size(50, 120),
-  ).animate(
-    CurvedAnimation(parent: _sizeTransitionController, curve: Curves.bounceIn),
-  );
-
   @override
   ValueListenable<bool> get isExpands => _isExpands;
-
-  @override
-  Animation<Size> get myAnimationTween => _myAnimation;
 
   ScaleTransitionWM(ScaleAnimationModels model) : super(model);
 
