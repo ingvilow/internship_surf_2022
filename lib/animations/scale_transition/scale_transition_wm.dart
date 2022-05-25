@@ -11,16 +11,17 @@ class ScaleTransitionWM
     extends WidgetModel<ScaleTransitionScreen, ScaleAnimationModels>
     with TickerProviderWidgetModelMixin
     implements IScaleAnimate {
+  @override
+  late final Animation<double> sizeTransitionAnimation = CurvedAnimation(
+    parent: _sizeTransitionController,
+    curve: Curves.linear,
+  );
+
   late final AnimationController _sizeTransitionController =
       AnimationController(
     duration: const Duration(seconds: 40),
     vsync: this,
   )..repeat(reverse: true);
-
-  late final Animation<double> _sizeTransitionAnimation = CurvedAnimation(
-    parent: _sizeTransitionController,
-    curve: Curves.linear,
-  );
 
   final ValueNotifier<bool> _isExpands = ValueNotifier(false);
 
@@ -33,9 +34,6 @@ class ScaleTransitionWM
 
   @override
   ValueListenable<bool> get isExpands => _isExpands;
-
-  @override
-  Animation<double> get sizeTransitionAnimation => _sizeTransitionAnimation;
 
   @override
   Animation<Size> get myAnimationTween => _myAnimation;
